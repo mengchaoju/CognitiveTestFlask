@@ -5,12 +5,15 @@ def createTables(DBname):
     #build the connect and select the DB
     mydb = pymysql.connect(settings.localhost, settings.username, settings.password)
 
-    sql_selectDB = "USE "+DBname
-
-
     my_cursor = mydb.cursor()
 
-    sql_createDB = "create database if it not exist"
+    sql_createDB = "create database " + DBname
+
+    my_cursor.execute(sql_createDB)
+    
+    sql_selectDB = "USE "+DBname
+
+    sql_createDB = "create database "+DBname
 
 
     my_cursor.execute(sql_selectDB)
