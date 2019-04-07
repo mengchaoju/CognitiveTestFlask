@@ -39,34 +39,39 @@ Session = sessionmaker(bind=engine)
 session =Session()
 
 
-@app.route('/')
-def test():
-    return 'Server works'
+@app.route('/', methods=['POST'])
+def post():
+    uid = request.form['uid']
+    name =  request.form['name']
+    print ('uid: %s, name: %s' % (uid, name))
+    return 'OK.'
 
+db.session.query(security).filter_by(userName="123").all()
 @app.route('/stafflogin',methods=['POST'])
 def check_user():
     userName=request.form['username']
-    haveRegistered = security.query.filter_by(userName=request.form['username']).all()
+    haveRegistered = db.session.query(security).filter_by(userName=request.form['username']).all()
     if haveRegistered.__len__() is not 0:
-        passwordRight = security.query.filter_by(userName = request.form['username'],
+        passwordRight = db.session.query(security).filter_by(userName = request.form['username'],
                                               password = request.form['password']).all()
         if passwordRight.__len__() is not 0:
             print(str(userName) + "login successful")
-            return 2 # 2 means login successful
+            return "2" # 2 means login successful
         else:
-            return 1 # 1 means password is not right
+            return "1" # 1 means password is not right
     else:
         print(str(userName) + "login fail")
-        return 0 # 0 means not find username
+        return "0" # 0 means not find username
 
 @app.route('/registerstaff',methods=['POST'])
 def register():
+    print(request.form)
     userName=request.form['username']
-    haveRegistered = session.query(security).filter_by(userName=request.form['username']).all()
+    haveRegistered = db.session.query(security).filter_by(userName=request.form['username']).all()
     if haveRegistered.__len__() is not 0:
-        return 0 # 0 means username has been registered
+        return "0" # 0 means username has been registered
     staffInfo=staff(userName=request.form['username'],
-                    firstName=request.form['firstName'],
+                    firstName=request.form['firstname'],
                     familyName=request.form['familyname'],
                     dateOfBirth=request.form["dateofbirth"])
     securityInfo = security(userName=request.form['username'],password=request.form['password'])
@@ -74,7 +79,7 @@ def register():
     session.commit()
     session.add(securityInfo)
     session.commit()
-    return 1 # 1 means register successful
+    return "1" # 1 means register successful
 
 if __name__ == '__main__':
     app.run()
