@@ -1,11 +1,11 @@
-import pymysql.connector
+import mysql.connector
 import settings
 
 
 
 def connectDatabase():
     #build the connect and select the DB
-    mydb = pymysql.connector.connect(
+    mydb = mysql.connector.connect(
         host=settings.localhost,
         user=settings.username,
         password=settings.password)
