@@ -10,3 +10,9 @@ copy_trial=Base.classes.copy_trial
 security=Base.classes.security
 images=Base.classes.images
 trails=Base.classes.trails
+
+test = recall_trial(recallTrialPixels='123',
+                                  recallTrailThinkingStartTime='123',
+                                  recallTrailThinkingEndTime='123',
+                                  recallTrailDrawingStartTime='123',
+                                  recallTrailDrawingEndTime='123')
