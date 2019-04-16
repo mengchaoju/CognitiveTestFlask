@@ -58,15 +58,15 @@ def routers(app):
     @app.route('/registerParticipant',methods=['POST'])
     def registerParticipants():
         print(request.form)
-        participantsID = request.form['patricipantsID']
-        haveRegistered = db.session.query(security).filter_by(participantsID=request.form['participantsid']).all()
+        participantID = request.form['participantid']
+        haveRegistered = db.session.query(participants).filter_by(participantID=request.form['participantid']).all()
         if haveRegistered.__len__() is not 0:
             return "participant ID has been registered"
-        participantsInfo=participants(participantsID=request.form['participantsid'],
+        participantsInfo=participants(participantID=request.form['participantid'],
                                       firstName=request.form['firstName'],
                                       familyName=request.form['familyname'],
                                       gender=request.form['gender'],
-                                      dob=request.form['dateofbirth'])
+                                      dateOfBirth=request.form['dateofbirth'])
         session.add(participantsInfo)
         session.commit()
         print("participant register successfully")
@@ -148,8 +148,34 @@ def routers(app):
                 }
                 result.append(record)
 
-        haveRecord=[]
-        haveRecord = db.session.query(participants).filter_by(participantsID=keyword).all()
+        haveRecord = db.session.query(participants).filter_by(participantID=keyword).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record = {
+                    "participantid": i.participantID,
+                    "firstname": i.firstName,
+                    "familyname": i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth": i.dateOfBirth
+                }
+
+                result.append(record)
+
+
+        haveRecord = db.session.query(participants).filter_by(firstName=keyword).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record = {
+                    "participantid": i.participantID,
+                    "firstname": i.firstName,
+                    "familyname": i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth": i.dateOfBirth
+                }
+            result.append(record)
+
+
+        haveRecord = db.session.query(participants).filter_by(familyName=keyword).all()
         if haveRecord.__len__() is not 0:
             for i in haveRecord:
                 record = {
@@ -161,61 +187,33 @@ def routers(app):
                 }
                 result.append(record)
 
-            haveRecord = []
-            haveRecord = db.session.query(participants).filter_by(firstName=keyword).all()
-            if haveRecord.__len__() is not 0:
-                for i in haveRecord:
-                    record = {
-                        "participantid": i.participantID,
-                        "firstname": i.firstName,
-                        "familyname": i.familyName,
-                        "gender": i.gender,
-                        "dateofbirth": i.dateOfBirth
-                    }
+        haveRecord = db.session.query(participants).filter_by(gender=keyword).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record = {
+                    "participantid": i.participantID,
+                    "firstname": i.firstName,
+                    "familyname": i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth": i.dateOfBirth
+                }
                 result.append(record)
 
-                haveRecord = []
-                haveRecord = db.session.query(participants).filter_by(familyName=keyword).all()
-                if haveRecord.__len__() is not 0:
-                    for i in haveRecord:
-                        record = {
-                            "participantid": i.participantID,
-                            "firstname": i.firstName,
-                            "familyname": i.familyName,
-                            "gender": i.gender,
-                            "dateofbirth": i.dateOfBirth
-                        }
-                        result.append(record)
+        haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record = {
+                    "participantid": i.participantID,
+                    "firstname": i.firstName,
+                    "familyname": i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth": i.dateOfBirth
+                }
+                result.append(record)
 
-                    haveRecord = []
-                    haveRecord = db.session.query(participants).filter_by(gender=keyword).all()
-                    if haveRecord.__len__() is not 0:
-                        for i in haveRecord:
-                            record = {
-                                "participantid": i.participantID,
-                                "firstname": i.firstName,
-                                "familyname": i.familyName,
-                                "gender": i.gender,
-                                "dateofbirth": i.dateOfBirth
-                            }
-                            result.append(record)
-
-                    haveRecord = []
-                    haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
-                    if haveRecord.__len__() is not 0:
-                        for i in haveRecord:
-                            record = {
-                                "participantid": i.participantID,
-                                "firstname": i.firstName,
-                                "familyname": i.familyName,
-                                "gender": i.gender,
-                                "dateofbirth": i.dateOfBirth
-                            }
-                            result.append(record)
-
-                    if result.__len__()==0:
-                        print("no record on :"+ keyword)
-                        return "no record"
-                    else:
-                        resultJson=json.dump()
-
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "no record"
+        else:
+            resultJson=json.dumps(result)
+            return resultJson
