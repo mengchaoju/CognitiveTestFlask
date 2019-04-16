@@ -131,13 +131,12 @@ def routers(app):
         print("Recall Trial has been created")
         return "image has been created successfully"
 
-    @app.route('/queryParticipantByDoB', methods=['GET'])
-    def getParticipantInfoByDoB():
+    @app.route('/queryParticipant', methods=['POST'])
+    def getParticipantInfo():
         print(request.form)
-        participantsDoB = request.form['dateofbirth']
-        request.args.get()
+        keyword = request.form['keyword']
         result = []
-        haveRecord = db.session.query(participants).filter_by(dataOfBirth=request.form['dateofbirth']).all()
+        haveRecord = db.session.query(participants).filter_by(dataOfBirth=keyword).all()
         if haveRecord.__len__() is not 0:
             for i in haveRecord:
                 record={
@@ -148,10 +147,75 @@ def routers(app):
                     "dateofbirth":i.dateOfBirth
                 }
                 result.append(record)
-        else:
-            print("no record on"+ participantsDoB)
-            return "no record"
 
+        haveRecord=[]
+        haveRecord = db.session.query(participants).filter_by(participantsID=keyword).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record = {
+                    "participantid": i.participantID,
+                    "firstname": i.firstName,
+                    "familyname": i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth": i.dateOfBirth
+                }
+                result.append(record)
 
+            haveRecord = []
+            haveRecord = db.session.query(participants).filter_by(firstName=keyword).all()
+            if haveRecord.__len__() is not 0:
+                for i in haveRecord:
+                    record = {
+                        "participantid": i.participantID,
+                        "firstname": i.firstName,
+                        "familyname": i.familyName,
+                        "gender": i.gender,
+                        "dateofbirth": i.dateOfBirth
+                    }
+                result.append(record)
 
+                haveRecord = []
+                haveRecord = db.session.query(participants).filter_by(familyName=keyword).all()
+                if haveRecord.__len__() is not 0:
+                    for i in haveRecord:
+                        record = {
+                            "participantid": i.participantID,
+                            "firstname": i.firstName,
+                            "familyname": i.familyName,
+                            "gender": i.gender,
+                            "dateofbirth": i.dateOfBirth
+                        }
+                        result.append(record)
+
+                    haveRecord = []
+                    haveRecord = db.session.query(participants).filter_by(gender=keyword).all()
+                    if haveRecord.__len__() is not 0:
+                        for i in haveRecord:
+                            record = {
+                                "participantid": i.participantID,
+                                "firstname": i.firstName,
+                                "familyname": i.familyName,
+                                "gender": i.gender,
+                                "dateofbirth": i.dateOfBirth
+                            }
+                            result.append(record)
+
+                    haveRecord = []
+                    haveRecord = db.session.query(participants).filter_by(dataOfBirth=keyword).all()
+                    if haveRecord.__len__() is not 0:
+                        for i in haveRecord:
+                            record = {
+                                "participantid": i.participantID,
+                                "firstname": i.firstName,
+                                "familyname": i.familyName,
+                                "gender": i.gender,
+                                "dateofbirth": i.dateOfBirth
+                            }
+                            result.append(record)
+
+                    if result.__len__()==0:
+                        print("no record on :"+ keyword)
+                        return "no record"
+                    else:
+                        resultJson=json.dump()
 
