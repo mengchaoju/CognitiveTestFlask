@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/domainLayer/acticities.py" description="# inserted_id = recall_trialInfo.recallTrailID" line="129" />
+    <bookmark url="file://$PROJECT_DIR$/domainLayer/acticities.py" description="# inserted_id = recall_trialInfo.recallTrailID" line="96" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3c5ac6d-4322-4e16-969b-3405fba27db0" name="Default Changelist" comment="fix bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasourceLayer/databaseConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasourceLayer/databaseConnection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/domainLayer/acticities.py" beforeDir="false" afterPath="$PROJECT_DIR$/domainLayer/acticities.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,25 +15,44 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/CognitiveTest_engine$CognitiveTest_engine.coverage" NAME="CognitiveTest-engine Coverage Results" MODIFIED="1555231849074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CognitiveTest_engine$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1555395800367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/CognitiveTest_engine$dbScript.coverage" NAME="dbScript Coverage Results" MODIFIED="1555232137005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/datasourceLayer" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/domainLayer/acticities.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="274">
               <caret line="218" column="29" lean-forward="true" selection-start-line="218" selection-start-column="29" selection-end-line="218" selection-end-column="29" />
+=======
+            <state relative-caret-position="-714">
+              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+>>>>>>> flask_frame
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/datasourceLayer/databaseConnection.py">
+        <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="8" column="14" selection-end-line="17" selection-end-column="66" />
-              <folding>
-                <element signature="e#0#47#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datasourceLayer/dbScript.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2992">
+              <caret line="177" selection-start-line="177" selection-end-line="177" />
             </state>
           </provider>
         </entry>
@@ -40,10 +60,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+            <state relative-caret-position="527">
+              <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datasourceLayer/databaseConnection.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,7 +113,6 @@
       <list>
         <option value="$PROJECT_DIR$/DBscript.py" />
         <option value="$PROJECT_DIR$/datasourceLayer/historyMapper.py" />
-        <option value="$PROJECT_DIR$/settings.py" />
         <option value="$PROJECT_DIR$/dbScript.py" />
         <option value="$PROJECT_DIR$/domainLayer/registerStaff.py" />
         <option value="$PROJECT_DIR$/recreatDB.py" />
@@ -91,16 +122,18 @@
         <option value="$PROJECT_DIR$/domainLayer/loginActivity.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/application/runServer.py" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/datasourceLayer/databaseConnection.py" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/datasourceLayer/dbScript.py" />
         <option value="$PROJECT_DIR$/domainLayer/acticities.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1050" />
+    <option name="x" value="1120" />
+    <option name="width" value="1618" />
+    <option name="height" value="1756" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -165,8 +198,30 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="CognitiveTest-engine" type="Python.FlaskServer">
+  <component name="RunManager" selected="Flask server.Flask (app.py)">
+    <configuration name="dbScript" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CognitiveTest-engine" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/datasourceLayer" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/datasourceLayer/dbScript.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CognitiveTest-engine" type="Python.FlaskServer" factoryName="Flask server">
       <module name="CognitiveTest-engine" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
       <option name="targetType" value="PATH" />
@@ -181,6 +236,27 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" factoryName="Flask server" temporary="true" nameIsGenerated="true">
+      <module name="CognitiveTest-engine" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flask server.Flask (app.py)" />
+        <item itemvalue="Python.dbScript" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -200,9 +276,16 @@
       <workItem from="1554767148049" duration="1670000" />
       <workItem from="1554768850481" duration="15088000" />
       <workItem from="1554784959679" duration="11025000" />
+<<<<<<< HEAD
       <workItem from="1554802425109" duration="7073000" />
       <workItem from="1555386459539" duration="7700000" />
       <workItem from="1555396617791" duration="975000" />
+=======
+      <workItem from="1554802425109" duration="5872000" />
+      <workItem from="1555230675332" duration="5196000" />
+      <workItem from="1555236538101" duration="7892000" />
+      <workItem from="1555377823211" duration="7942000" />
+>>>>>>> flask_frame
     </task>
     <task id="LOCAL-00001" summary="use flask frame to operate database and created the login function and register function">
       <created>1554405272249</created>
@@ -218,6 +301,7 @@
       <option name="project" value="LOCAL" />
       <updated>1554788192623</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00003" summary="adjusted the structure and finished some function">
       <created>1554808825918</created>
       <option name="number" value="00003" />
@@ -244,27 +328,42 @@
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="65019000" />
+=======
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="76542000" />
+>>>>>>> flask_frame
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="0" width="781" height="840" extended-state="0" />
+    <frame x="560" y="0" width="809" height="878" extended-state="0" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26556018" />
+=======
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23035952" />
+>>>>>>> flask_frame
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49930844" weight="0.32627118" />
+=======
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49930844" visible="true" weight="0.22860962" />
+>>>>>>> flask_frame
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32909605" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.328877" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5006916" side_tool="true" weight="0.33474576" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32960895" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="12" visible="true" weight="0.33050847" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.20855615" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.17379679" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -280,41 +379,83 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="use flask frame to operate database and created the login function and register function" />
     <MESSAGE value="adjusted the structure" />
+<<<<<<< HEAD
     <MESSAGE value="adjusted the structure and finished some function" />
     <MESSAGE value="History" />
     <MESSAGE value="fix bugs" />
     <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
+=======
+    <option name="LAST_COMMIT_MESSAGE" value="adjusted the structure" />
+>>>>>>> flask_frame
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CognitiveTest_engine$CognitiveTest_engine.coverage" NAME="CognitiveTest-engine Coverage Results" MODIFIED="1555397114146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/PycharmProjects/CognitiveTest-engine/venv/Lib/site-packages/pymysql/err.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2014">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/CognitiveTest-engine/venv/Lib/site-packages/pymysql/err.py" />
     <entry file="file://$PROJECT_DIR$/domainLayer/registerStaff.py" />
     <entry file="file://$PROJECT_DIR$/recreatDB.py" />
-    <entry file="file://$PROJECT_DIR$/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/CognitiveTest-engine/venv/Lib/site-packages/flask/app.py" />
     <entry file="file://$PROJECT_DIR$/domainLayer/registerActivity.py" />
     <entry file="file://$PROJECT_DIR$/securityLayer/authenticationEnforcer.py" />
-    <entry file="file://$PROJECT_DIR$/datasourceLayer/historyMapper.py" />
-    <entry file="file://$PROJECT_DIR$/datasourceLayer/dbScript.py">
+    <entry file="file://$PROJECT_DIR$/datasourceLayer/createAppDBObject.py" />
+    <entry file="file://$PROJECT_DIR$/domainLayer/history.py" />
+    <entry file="file://$PROJECT_DIR$/domainLayer/signUpandLogin.py" />
+    <entry file="file://$PROJECT_DIR$/domainLayer/loginActivity.py" />
+    <entry file="file://$PROJECT_DIR$/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/runServer.py" />
+    <entry file="file://$PROJECT_DIR$/startup.py" />
+    <entry file="file://$PROJECT_DIR$/datasourceLayer/historyMapper.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Data/Python envtest/envtest/Lib/site-packages/pymysql/_auth.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+        <state relative-caret-position="158">
+          <caret line="141" column="99" lean-forward="true" selection-start-line="141" selection-start-column="99" selection-end-line="141" selection-end-column="99" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/domainLayer/registerStaff.py" />
+    <entry file="file://$PROJECT_DIR$/recreatDB.py" />
+=======
+    <entry file="file://C:/Softwares/Python/Lib/runpy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1076">
+          <caret line="192" selection-start-line="192" selection-end-line="192" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Data/Python envtest/envtest/Lib/site-packages/pymysql/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-173">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Data/Python envtest/envtest/Lib/site-packages/pymysql/connections.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14569">
+          <caret line="881" selection-start-line="881" selection-end-line="881" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> flask_frame
+    <entry file="file://$PROJECT_DIR$/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datasourceLayer/dbScript.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2992">
+          <caret line="177" selection-start-line="177" selection-end-line="177" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/datasourceLayer/createAppDBObject.py" />
     <entry file="file://$PROJECT_DIR$/domainLayer/history.py" />
     <entry file="file://$PROJECT_DIR$/domainLayer/signUpandLogin.py" />
@@ -340,25 +481,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
           <caret line="218" column="29" lean-forward="true" selection-start-line="218" selection-start-column="29" selection-end-line="218" selection-end-column="29" />
+=======
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+>>>>>>> flask_frame
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datasourceLayer/databaseConnection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="8" column="14" selection-end-line="17" selection-end-column="66" />
+        <state relative-caret-position="255">
+          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
+    <entry file="file://$PROJECT_DIR$/domainLayer/acticities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+        <state relative-caret-position="-714">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
