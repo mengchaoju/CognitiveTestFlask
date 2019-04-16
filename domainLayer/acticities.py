@@ -71,15 +71,20 @@ def routers(app):
     @app.route('/registerParticipant',methods=['POST'])
     def registerParticipants():
         print(request.form)
-        participantID = request.form['participantid']
+        mParticipantID = request.form['participantid']
+        mFirstName = request.form['firstname']
+        mFamilyName = request.form['familyname']
+        mParticipantID = request.form['participantid']
+        mGender = request.form['gender']
+        mDateOfBirth = request.form['dateofbirth']
         haveRegistered = db.session.query(participants).filter_by(participantID=request.form['participantid']).all()
         if haveRegistered.__len__() is not 0:
             return "participant ID has been registered"
-        participantsInfo=participants(participantID=request.form['participantid'],
-                                      firstName=request.form['firstName'],
-                                      familyName=request.form['familyname'],
-                                      gender=request.form['gender'],
-                                      dateOfBirth=request.form['dateofbirth'])
+        participantsInfo=participants(participantID=mParticipantID,
+                                      firstName=mFirstName,
+                                      familyName=mFamilyName,
+                                      gender=mGender,
+                                      dateOfBirth=mDateOfBirth)
         session.add(participantsInfo)
         session.commit()
         print("participant register successfully")
@@ -140,6 +145,32 @@ def routers(app):
                     "dateofbirth": i.dateOfBirth
                 }
             result.append(record)
+
+        haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record = {
+                    "participantid": i.participantID,
+                    "firstname": i.firstName,
+                    "familyname": i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth": i.dateOfBirth
+                }
+                result.append(record)
+
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "no record"
+        else:
+            isSame = False
+            for i in range(0,len(result)-2):
+                for j in range(1,len(result)-1):
+                    if(result[i].get("participantid")==result[j].get("participantid")):
+                        result.pop(i)
+
+
+            resultJson=json.dumps(result)
+            return resultJson
 
 
     @app.route('/pixelsdata', methods=['POST'])
@@ -257,21 +288,3 @@ def routers(app):
         print("Trail has been created")
         print("Trail has been created successful")
 
-        haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
-        if haveRecord.__len__() is not 0:
-            for i in haveRecord:
-                record = {
-                    "participantid": i.participantID,
-                    "firstname": i.firstName,
-                    "familyname": i.familyName,
-                    "gender": i.gender,
-                    "dateofbirth": i.dateOfBirth
-                }
-                result.append(record)
-
-        if result.__len__()==0:
-            print("no record on :"+ keyword)
-            return "no record"
-        else:
-            resultJson=json.dumps(result)
-            return resultJson

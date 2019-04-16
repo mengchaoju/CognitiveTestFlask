@@ -1,6 +1,6 @@
 username = "root"
 
-password = "877496"
+password = "123456789"
 
 host = "localhost"
 
