@@ -3,8 +3,8 @@ import settings
 
 def connectDatabase():
     #build the connect and select the DB
-    mydb = pymysql.connector.connect(
-        host=settings.localhost,
+    mydb = pymysql.connect(
+        host=settings.host,
         user=settings.username,
         password=settings.password)
 
@@ -172,6 +172,6 @@ def createTables(mydb, DBname):
 
 if __name__ == '__main__':
     mydb = connectDatabase()
-    dropDatabase(mydb, settings.DBname)
-    createTables(mydb, settings.DBname)
+    dropDatabase(mydb, settings.databasename)
+    createTables(mydb, settings.databasename)
     print("Database created")
