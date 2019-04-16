@@ -136,7 +136,7 @@ def routers(app):
         print(request.form)
         keyword = request.form['keyword']
         result = []
-        haveRecord = db.session.query(participants).filter_by(dataOfBirth=keyword).all()
+        haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
         if haveRecord.__len__() is not 0:
             for i in haveRecord:
                 record={
@@ -201,7 +201,7 @@ def routers(app):
                             result.append(record)
 
                     haveRecord = []
-                    haveRecord = db.session.query(participants).filter_by(dataOfBirth=keyword).all()
+                    haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
                     if haveRecord.__len__() is not 0:
                         for i in haveRecord:
                             record = {
