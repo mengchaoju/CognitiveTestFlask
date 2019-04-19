@@ -6,6 +6,7 @@ import json
 import settings
 from app import db
 from datasourceLayer.databaseConnection import *
+from sqlalchemy import or_,literal
 
 engine = create_engine("mysql+pymysql://"+settings.username+":"+settings.password+"@"+settings.host+":3306/"+settings.databasename,echo=True)
 Session = sessionmaker(bind=engine)
@@ -103,12 +104,17 @@ def routers(app):
         print("Recall Trial has been created")
         return "image has been created successfully"
 
-    @app.route('/queryParticipant', methods=['POST'])
+    @app.route('/queryParticipantAll', methods=['POST'])
     def getParticipantInfo():
         print(request.form)
         keyword = request.form['keyword']
         result = []
-        haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
+
+        haveRecord = db.session.query(participants).filter(or_(participants.dateOfBirth.like('%'+str(keyword)+'%'),
+                                                               participants.firstName.like('%'+str(keyword)+'%'),
+                                                               participants.familyName.like('%'+str(keyword)+'%'),
+                                                               participants.gender.like('%'+str(keyword)+'%'),
+                                                               participants.dateOfBirth.like('%' + str(keyword) + '%'))).all()
         if haveRecord.__len__() is not 0:
             for i in haveRecord:
                 record={
@@ -118,60 +124,145 @@ def routers(app):
                     "gender": i.gender,
                     "dateofbirth":i.dateOfBirth
                 }
-                result.append(record)
 
-        haveRecord = db.session.query(participants).filter_by(participantID=keyword).all()
-        if haveRecord.__len__() is not 0:
-            for i in haveRecord:
-                record = {
-                    "participantid": i.participantID,
-                    "firstname": i.firstName,
-                    "familyname": i.familyName,
-                    "gender": i.gender,
-                    "dateofbirth": i.dateOfBirth
-                }
-
-                result.append(record)
-
-
-        haveRecord = db.session.query(participants).filter_by(firstName=keyword).all()
-        if haveRecord.__len__() is not 0:
-            for i in haveRecord:
-                record = {
-                    "participantid": i.participantID,
-                    "firstname": i.firstName,
-                    "familyname": i.familyName,
-                    "gender": i.gender,
-                    "dateofbirth": i.dateOfBirth
-                }
-            result.append(record)
-
-        haveRecord = db.session.query(participants).filter_by(dateOfBirth=keyword).all()
-        if haveRecord.__len__() is not 0:
-            for i in haveRecord:
-                record = {
-                    "participantid": i.participantID,
-                    "firstname": i.firstName,
-                    "familyname": i.familyName,
-                    "gender": i.gender,
-                    "dateofbirth": i.dateOfBirth
-                }
                 result.append(record)
 
         if result.__len__()==0:
             print("no record on :"+ keyword)
-            return "no record"
+            return "No record"
         else:
-            isSame = False
-            for i in range(0,len(result)-2):
-                for j in range(1,len(result)-1):
-                    if(result[i].get("participantid")==result[j].get("participantid")):
-                        result.pop(i)
-
-
             resultJson=json.dumps(result)
             return resultJson
 
+    @app.route('/queryParticipantFirstName', methods=['POST'])
+    def getParticipantFirst():
+        print(request.form)
+        keyword = request.form['keyword']
+        result = []
+
+        haveRecord = db.session.query(participants).filter(or_(participants.firstName.like('%'+str(keyword)+'%'))).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record={
+                    "participantid":i.participantID,
+                    "firstname": i.firstName,
+                    "familyname":i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth":i.dateOfBirth
+                }
+
+                result.append(record)
+
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "No record"
+        else:
+            resultJson=json.dumps(result)
+            return resultJson
+
+    @app.route('/queryParticipantFamilyName', methods=['POST'])
+    def getParticipantFamily():
+        print(request.form)
+        keyword = request.form['keyword']
+        result = []
+
+        haveRecord = db.session.query(participants).filter(or_(participants.familyName.like('%'+str(keyword)+'%'))).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record={
+                    "participantid":i.participantID,
+                    "firstname": i.firstName,
+                    "familyname":i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth":i.dateOfBirth
+                }
+
+                result.append(record)
+
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "No record"
+        else:
+            resultJson=json.dumps(result)
+            return resultJson
+
+    @app.route('/queryParticipantID', methods=['POST'])
+    def getParticipantID():
+        print(request.form)
+        keyword = request.form['keyword']
+        result = []
+
+        haveRecord = db.session.query(participants).filter(or_(participants.participantID.like('%'+str(keyword)+'%'))).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record={
+                    "participantid":i.participantID,
+                    "firstname": i.firstName,
+                    "familyname":i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth":i.dateOfBirth
+                }
+
+                result.append(record)
+
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "No record"
+        else:
+            resultJson=json.dumps(result)
+            return resultJson
+
+    @app.route('/queryParticipantGender', methods=['POST'])
+    def getParticipantGender():
+        print(request.form)
+        keyword = request.form['keyword']
+        result = []
+
+        haveRecord = db.session.query(participants).filter(or_(participants.gender.like('%'+str(keyword)+'%'))).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record={
+                    "participantid":i.participantID,
+                    "firstname": i.firstName,
+                    "familyname":i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth":i.dateOfBirth
+                }
+
+                result.append(record)
+
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "No record"
+        else:
+            resultJson=json.dumps(result)
+            return resultJson
+
+    @app.route('/queryParticipantDateOfBirth', methods=['POST'])
+    def getParticipantDoB():
+        print(request.form)
+        keyword = request.form['keyword']
+        result = []
+
+        haveRecord = db.session.query(participants).filter(or_(participants.dateOfBirth.like('%'+str(keyword)+'%'))).all()
+        if haveRecord.__len__() is not 0:
+            for i in haveRecord:
+                record={
+                    "participantid":i.participantID,
+                    "firstname": i.firstName,
+                    "familyname":i.familyName,
+                    "gender": i.gender,
+                    "dateofbirth":i.dateOfBirth
+                }
+
+                result.append(record)
+
+        if result.__len__()==0:
+            print("no record on :"+ keyword)
+            return "No record"
+        else:
+            resultJson=json.dumps(result)
+            return resultJson
 
     @app.route('/pixelsdata', methods=['POST'])
     def request_pixels():  # First check the user id, then get pixel data of this user from database.
