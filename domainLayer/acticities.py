@@ -11,18 +11,11 @@ from sqlalchemy import or_,literal
 engine = create_engine("mysql+pymysql://"+settings.username+":"+settings.password+"@"+settings.host+":3306/"+settings.databasename,echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
-participant_id = 'sampleUser'  # The participant ID that requesting data
 '''
-The following global variables cache the data received from the app
+This dictionary caches the copy trial Data. Key = participantID. 
+Value = copyTrialID, copyTrialStartTime, staffID
 '''
-copy_trial_pixels = None
-copy_trial_start_time = None
-copy_trial_end_time = None
-recall_trial_pixels = None
-recall_trial_thinking_start_time = None
-recall_trial_thinking_end_time = None
-recall_trial_drawing_start_time = None
-recall_trial_drawing_end_time = None
+trialsData = {}
 
 
 def routers(app):
@@ -266,14 +259,20 @@ def routers(app):
 
     @app.route('/pixelsdata', methods=['POST'])
     def request_pixels():  # First check the user id, then get pixel data of this user from database.
-        global participant_id
         participant_id = request.form['username']
+        target_trial = db.session.query(trials).filiter_by(participantID=participant_id).all()
+        recall_trialID= target_trial[0].recallTrialID
+        copy_trialID= target_trial[0].copyTrialID
+
+        target_copytrial = db.session.query(copy_trial).filter_by(copyTrialID=copy_trialID).all()
+        target_recalltrial = db.session.query(recall_trial).filter_by(recallTrialID=recall_trialID).all()
+        copy_trial_pixels = target_copytrial[0].copyTrialPixels
+        recall_trial_pixels = target_recalltrial[0].recallTrialPixels
         print('Request for user pixel data, username:'+participant_id)
         if participant_id == 'sampleUser':
             return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
         else:
-            return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
-
+            return copy_trial_pixels+'&'+recall_trial_pixels
 
     '''
     The following 2 functions deal with uploading trial data to server.
@@ -281,35 +280,20 @@ def routers(app):
     '''
     @app.route('/uploadcopy', methods=['POST'])
     def upload_copy_trials():  # First check the user id, then get pixel data of this user from database.
-        global participant_id, copy_trial_pixels
-        global copy_trial_start_time, copy_trial_end_time
         participant_id = request.form['username']  # The participant ID
         copy_trial_pixels = request.form['pixelData']
         time_data = request.form['timeData']
+        staff_id = request.form['staffID']
         time_arr = time_data.split(';')
         copy_trial_start_time = time_arr[0]  # The time starting copy trial activity
         copy_trial_end_time = time_arr[3]  # The time clicking the finish button in copy trial activity
         print('Receive copy trial time data of user:' + participant_id + '\ndata:' + time_data)
         print('Receive copy trial pixel data of user:'+participant_id+'\ndata:'+copy_trial_pixels)
-        create_copy_trial()
+        create_copy_trial(copy_trial_pixels, copy_trial_start_time, copy_trial_end_time, staff_id)
         return '1'  # Success
-        haveRecord = db.session.query(participants).filter_by(gender=keyword).all()
-        if haveRecord.__len__() is not 0:
-            for i in haveRecord:
-                record = {
-                    "participantid": i.participantID,
-                    "firstname": i.firstName,
-                    "familyname": i.familyName,
-                    "gender": i.gender,
-                    "dateofbirth": i.dateOfBirth
-                }
-                result.append(record)
 
     @app.route('/uploadrecall', methods=['POST'])
     def upload_recall_pixels():
-        global participant_id, recall_trial_pixels
-        global recall_trial_thinking_start_time, recall_trial_thinking_end_time
-        global recall_trial_drawing_start_time, recall_trial_drawing_end_time
         participant_id = request.form['username']
         recall_trial_pixels = request.form['pixelData']
         time_data = request.form['timeData']
@@ -319,16 +303,17 @@ def routers(app):
         recall_trial_drawing_start_time = time_arr[2]
         recall_trial_drawing_end_time = time_arr[3]
         print('Receive recall trial time data of user:' + participant_id + '\ndata:' + time_data)
-        print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixels)
-        create_recall_trial()
+        print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixel)
+        create_recall_trial(participant_id, recall_trial_pixels, recall_trial_thinking_start_time,
+                            recall_trial_thinking_end_time, recall_trial_drawing_start_time,
+                            recall_trial_drawing_end_time)
         return '1'  # Success
 
     '''
     The following 3 functions deal with storing trials data to database
     
     '''
-    def create_copy_trial():
-        global copy_trial_pixels, copy_trial_start_time, copy_trial_end_time
+    def create_copy_trial(copy_trial_pixels, copy_trial_start_time, copy_trial_end_time, staff_id):
         copy_trialInfo=copy_trial(copyTrialPixels=copy_trial_pixels,
                                   copyTrialStartTime=copy_trial_start_time,
                                   copyTrialEndTime=copy_trial_end_time)
@@ -337,10 +322,12 @@ def routers(app):
         inserted_id = copy_trialInfo.copyTrialID
         session.commit()
         print("Copy Trial has been created with ID:"+str(inserted_id))
+        temp_str = str(inserted_id)+','+str(copy_trial_start_time)+','+str(staff_id)
+        trialsData[participant_id] = temp_str  # Cache data. Value = copyTrialID, copyTrialStartTime, staffID
 
-    def create_recall_trial():
-        global recall_trial_pixels, recall_trial_thinking_start_time, recall_trial_thinking_end_time
-        global recall_trial_drawing_start_time, recall_trial_drawing_end_time
+    def create_recall_trial(participant_id, recall_trial_pixels, recall_trial_thinking_start_time,
+                            recall_trial_thinking_end_time, recall_trial_drawing_start_time,
+                            recall_trial_drawing_end_time):
         recall_trialInfo=recall_trial(recallTrialPixels=recall_trial_pixels,
                                       recallTrialThinkingStartTime=recall_trial_thinking_start_time,
                                       recallTrialThinkingEndTime=recall_trial_thinking_end_time,
@@ -350,21 +337,23 @@ def routers(app):
         session.flush()
         inserted_id = recall_trialInfo.recallTrialID
         session.commit()
-        # inserted_id = recall_trialInfo.recallTrialID
         print("Recall Trial has been created with ID:"+str(inserted_id))
+        tempArr = trialsData[participant_id].split(',')
+        staff_id = tempArr[2]
+        copy_trial_id = tempArr[0]
+        trial_start_time = tempArr[1]
+        create_trials(participant_id, staff_id, copy_trial_id, inserted_id, trial_start_time,
+                      recall_trial_drawing_end_time)
 
-    def createTrials():
-        global participant_id
+    def create_trials(participant_id, staff_id, copy_trial_id, recall_trial_id, trial_start_time, trial_end_time):
         trialsInfo=trials(participantID=participant_id,
-                          userName=request.form['username'],
-                          copyTrialID=request.form['copytrialid'],
-                          recallTrialID=request.form['recalltrialid'],
-                          trialStartTime=request.form['trialstarttime'],
-                          trialEndTime=request.form['trialendtime']
-                          )
+                          userName=staff_id,
+                          copyTrialID=copy_trial_id,
+                          recallTrialID=recall_trial_id,
+                          trialStartTime=trial_start_time,
+                          trialEndTime=trial_end_time)
         session.add(trialsInfo)
         session.flush()
         session.commit()
         print("Trial has been created")
-        print("Trial has been created successful")
 
