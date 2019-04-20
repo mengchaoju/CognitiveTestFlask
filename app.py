@@ -24,7 +24,7 @@ metadata=MetaData(engine)
 
 db=SQLAlchemy(app)
 
-# from datasourceLayer.databaseConnection import staff,security,recall_trial,copy_trial,trails,participants,images
+# from datasourceLayer.databaseConnection import staff,security,recall_trial,copy_trial,trials,participants,images
 from domainLayer.acticities import routers
 
 routers(app)
