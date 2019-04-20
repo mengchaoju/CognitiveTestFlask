@@ -100,7 +100,7 @@ def routers(app):
         session.add(imageInfo)
         session.flush()
         session.commit()
-        # inserted_id = recall_trialInfo.recallTrailID
+        # inserted_id = recall_trialInfo.recallTrialID
         print("Recall Trial has been created")
         return "image has been created successfully"
 
@@ -291,7 +291,7 @@ def routers(app):
         copy_trial_end_time = time_arr[3]  # The time clicking the finish button in copy trial activity
         print('Receive copy trial time data of user:' + participant_id + '\ndata:' + time_data)
         print('Receive copy trial pixel data of user:'+participant_id+'\ndata:'+copy_trial_pixels)
-        create_copy_trail()
+        create_copy_trial()
         return '1'  # Success
         haveRecord = db.session.query(participants).filter_by(gender=keyword).all()
         if haveRecord.__len__() is not 0:
@@ -320,14 +320,14 @@ def routers(app):
         recall_trial_drawing_end_time = time_arr[3]
         print('Receive recall trial time data of user:' + participant_id + '\ndata:' + time_data)
         print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixels)
-        create_recall_trail()
+        create_recall_trial()
         return '1'  # Success
 
     '''
     The following 3 functions deal with storing trials data to database
     
     '''
-    def create_copy_trail():
+    def create_copy_trial():
         global copy_trial_pixels, copy_trial_start_time, copy_trial_end_time
         copy_trialInfo=copy_trial(copyTrialPixels=copy_trial_pixels,
                                   copyTrialStartTime=copy_trial_start_time,
@@ -338,33 +338,33 @@ def routers(app):
         session.commit()
         print("Copy Trial has been created with ID:"+str(inserted_id))
 
-    def create_recall_trail():
+    def create_recall_trial():
         global recall_trial_pixels, recall_trial_thinking_start_time, recall_trial_thinking_end_time
         global recall_trial_drawing_start_time, recall_trial_drawing_end_time
         recall_trialInfo=recall_trial(recallTrialPixels=recall_trial_pixels,
-                                      recallTrailThinkingStartTime=recall_trial_thinking_start_time,
-                                      recallTrailThinkingEndTime=recall_trial_thinking_end_time,
-                                      recallTrailDrawingStartTime=recall_trial_drawing_start_time,
-                                      recallTrailDrawingEndTime=recall_trial_drawing_end_time)
+                                      recallTrialThinkingStartTime=recall_trial_thinking_start_time,
+                                      recallTrialThinkingEndTime=recall_trial_thinking_end_time,
+                                      recallTrialDrawingStartTime=recall_trial_drawing_start_time,
+                                      recallTrialDrawingEndTime=recall_trial_drawing_end_time)
         session.add(recall_trialInfo)
         session.flush()
-        inserted_id = recall_trialInfo.recallTrailID
+        inserted_id = recall_trialInfo.recallTrialID
         session.commit()
-        # inserted_id = recall_trialInfo.recallTrailID
+        # inserted_id = recall_trialInfo.recallTrialID
         print("Recall Trial has been created with ID:"+str(inserted_id))
 
-    def createTrails():
+    def createTrials():
         global participant_id
-        trailsInfo=trails(participantID=participant_id,
+        trialsInfo=trials(participantID=participant_id,
                           userName=request.form['username'],
-                          copyTrialID=request.form['copytrailid'],
-                          recallTrailID=request.form['recalltrailid'],
+                          copyTrialID=request.form['copytrialid'],
+                          recallTrialID=request.form['recalltrialid'],
                           trialStartTime=request.form['trialstarttime'],
-                          trailEndTime=request.form['trailendtime']
+                          trialEndTime=request.form['trialendtime']
                           )
-        session.add(trailsInfo)
+        session.add(trialsInfo)
         session.flush()
         session.commit()
-        print("Trail has been created")
-        print("Trail has been created successful")
+        print("Trial has been created")
+        print("Trial has been created successful")
 
