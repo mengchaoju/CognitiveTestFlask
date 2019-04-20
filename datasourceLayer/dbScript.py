@@ -170,8 +170,23 @@ def createTables(mydb, DBname):
 
     mydb.close()
 
+def dbExisting(mydb, dbName):
+    my_cursor = mydb.cursor()
+    dbList = "show databases"
+    my_cursor.execute(dbList)
+    list = my_cursor.fetchall()
+    flag = False
+    for i in list:
+        if str(i).__contains__(dbName):
+            flag = True
+    return flag
+
 if __name__ == '__main__':
     mydb = connectDatabase()
-    dropDatabase(mydb, settings.databasename)
-    createTables(mydb, settings.databasename)
-    print("Database created")
+    if(dbExisting(mydb, settings.databasename)==False):
+        # dropDatabase(mydb, settings.databasename)
+        createTables(mydb, settings.databasename)
+        print("Create database")
+    else:
+        print("Database already existing")
+
