@@ -68,15 +68,15 @@ def routers(app):
         print("register successful")
         return "register successful"
 
-    @app.route('/registerParticipant',methods=['POST'])
+    @app.route('/registerParticipant', methods=['POST'])
     def registerParticipants():
         print(request.form)
         participantsID = request.form['patricipantsID']
         haveRegistered = db.session.query(security).filter_by(participantsID=request.form['participantsid']).all()
         if haveRegistered.__len__() is not 0:
             return "participant ID has been registered"
-        participantsInfo=participants(participantsID=request.form['participantsid'],
-                                      firstName=request.form['firstName'],
+        participantsInfo=participants(participantsID=request.form['participantid'],
+                                      firstName=request.form['firstname'],
                                       familyName=request.form['familyname'],
                                       gender=request.form['gender'],
                                       dob=request.form['dateofbirth'])
@@ -186,14 +186,13 @@ def routers(app):
 
     @app.route('/pixelsdata', methods=['POST'])
     def request_pixels():  # First check the user id, then get pixel data of this user from database.
-        # TODO:
         global participant_id
         participant_id = request.form['username']
         print('Request for user pixel data, username:'+participant_id)
         if participant_id == 'sampleUser':
-            return settings.samplePixelData  # success
+            return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
         else:
-            return '0'
+            return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
 
     '''
     The following 2 functions deal with uploading trial data to server.
@@ -253,7 +252,7 @@ def routers(app):
         recall_trialInfo=recall_trial(recallTrialPixels=recall_trial_pixels,
                                       recallTrailThinkingStartTime=recall_trial_thinking_start_time,
                                       recallTrailThinkingEndTime=recall_trial_thinking_end_time,
-                                      ecallTrailDrawingStartTime=recall_trial_drawing_start_time,
+                                      recallTrailDrawingStartTime=recall_trial_drawing_start_time,
                                       recallTrailDrawingEndTime=recall_trial_drawing_end_time)
         session.add(recall_trialInfo)
         session.flush()
