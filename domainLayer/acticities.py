@@ -303,7 +303,7 @@ def routers(app):
         recall_trial_drawing_start_time = time_arr[2]
         recall_trial_drawing_end_time = time_arr[3]
         print('Receive recall trial time data of user:' + participant_id + '\ndata:' + time_data)
-        print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixels)
+        print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixel)
         create_recall_trial(participant_id, recall_trial_pixels, recall_trial_thinking_start_time,
                             recall_trial_thinking_end_time, recall_trial_drawing_start_time,
                             recall_trial_drawing_end_time)
@@ -351,10 +351,9 @@ def routers(app):
                           copyTrialID=copy_trial_id,
                           recallTrialID=recall_trial_id,
                           trialStartTime=trial_start_time,
-                          trialEndTime=trial_end_time
-                          )
+                          trialEndTime=trial_end_time)
         session.add(trialsInfo)
         session.flush()
         session.commit()
-        print("Trial has been created successful")
+        print("Trial has been created")
 

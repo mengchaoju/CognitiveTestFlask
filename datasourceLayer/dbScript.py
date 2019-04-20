@@ -16,7 +16,7 @@ def dropDatabase(mydb, DBname):
     sql_selectDB = "USE "+ DBname
     my_cursor.execute(sql_selectDB)
 
-    sql_dropTable = "DROP TABLE IF EXISTS Trails"
+    sql_dropTable = "DROP TABLE IF EXISTS Trials"
     my_cursor.execute(sql_dropTable)
 
     sql_dropTable = "DROP TABLE IF EXISTS Security"
@@ -66,7 +66,7 @@ def createTables(mydb, DBname):
                                                                  "PRIMARY KEY (`imageID`)) " \
                                                                  "ENGINE = InnoDB"
 
-    sql_creatCopyTrailTable = """CREATE TABLE `CognitiveTestDB`.`Copy_Trial`
+    sql_creatCopyTrialTable = """CREATE TABLE `CognitiveTestDB`.`Copy_Trial`
     (`copyTrialID` INT NOT NULL AUTO_INCREMENT,
     `copyTrialPixels` LONGTEXT NULL,
     `copyTrialStartTime` VARCHAR(45) NULL,
@@ -84,15 +84,15 @@ def createTables(mydb, DBname):
     PRIMARY KEY (`participantID`))
     ENGINE = InnoDB"""
 
-    sql_creatRecallTrailTable = """CREATE TABLE IF NOT EXISTS `CognitiveTestDB`.`Recall_Trial` (
-    `recallTrailID` INT NOT NULL AUTO_INCREMENT,
+    sql_creatRecallTrialTable = """CREATE TABLE IF NOT EXISTS `CognitiveTestDB`.`Recall_Trial` (
+    `recallTrialID` INT NOT NULL AUTO_INCREMENT,
     `recallTrialPixels` LONGTEXT NULL,
-    `recallTrailThinkingStartTime` VARCHAR(45) NULL,
-    `recallTrailThinkingEndTime` VARCHAR(45) NULL,
-    `recallTrailDrawingStartTime` VARCHAR(45) NULL,
-    `recallTrailDrawingEndTime` VARCHAR(45) NULL,
-    PRIMARY KEY (`recallTrailID`),
-    UNIQUE INDEX `recallTrailID_UNIQUE` (`recallTrailID` ASC))
+    `recallTrialThinkingStartTime` VARCHAR(45) NULL,
+    `recallTrialThinkingEndTime` VARCHAR(45) NULL,
+    `recallTrialDrawingStartTime` VARCHAR(45) NULL,
+    `recallTrialDrawingEndTime` VARCHAR(45) NULL,
+    PRIMARY KEY (`recallTrialID`),
+    UNIQUE INDEX `recallTrialID_UNIQUE` (`recallTrialID` ASC))
     ENGINE = InnoDB"""
 
     sql_creatSecurityTable = """CREATE TABLE IF NOT EXISTS `CognitiveTestDB`.`Security` (
@@ -117,21 +117,21 @@ def createTables(mydb, DBname):
     UNIQUE INDEX `userName_UNIQUE` (`userName` ASC))
     ENGINE = InnoDB"""
 
-    sql_creatTrialTable = """CREATE TABLE IF NOT EXISTS `CognitiveTestDB`.`Trails` (
+    sql_creatTrialTable = """CREATE TABLE IF NOT EXISTS `CognitiveTestDB`.`Trials` (
     `trialID` INT NOT NULL AUTO_INCREMENT,
     `participantID` VARCHAR(50) NOT NULL,
     `userName` VARCHAR(50) NOT NULL,
     `imageID` INT NOT NULL,
-    `copyTrailID` INT NOT NULL,
-    `recallTrailID` INT NOT NULL,
+    `copyTrialID` INT NOT NULL,
+    `recallTrialID` INT NOT NULL,
     `trialStartTime` VARCHAR(45) NOT NULL,
-    `trailEndTime` VARCHAR(45) NULL,
+    `trialEndTime` VARCHAR(45) NULL,
     PRIMARY KEY (`trialID`),
     INDEX `fk_Test Result_Patient_idx` (`participantID` ASC),
     INDEX `fk_Test Result_Clinician1_idx` (`userName` ASC),
     INDEX `fk_Tasks_Images1_idx` (`imageID` ASC),
-    INDEX `fk_Tasks_Copy_Task1_idx` (`copyTrailID` ASC),
-    INDEX `fk_Tasks_Recall_Task1_idx` (`recallTrailID` ASC),
+    INDEX `fk_Tasks_Copy_Task1_idx` (`copyTrialID` ASC),
+    INDEX `fk_Tasks_Recall_Task1_idx` (`recallTrialID` ASC),
     UNIQUE INDEX `trialID_UNIQUE` (`trialID` ASC),
     CONSTRAINT `fk_Test Result_Patient`
     FOREIGN KEY (`participantID`)
@@ -149,20 +149,20 @@ def createTables(mydb, DBname):
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_Tasks_Copy_Task1`
-    FOREIGN KEY (`copyTrailID`)
+    FOREIGN KEY (`copyTrialID`)
     REFERENCES `CognitiveTestDB`.`Copy_Trial` (`copyTrialID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_Tasks_Recall_Task1`
-    FOREIGN KEY (`recallTrailID`)
-    REFERENCES `CognitiveTestDB`.`Recall_Trial` (`recallTrailID`)
+    FOREIGN KEY (`recallTrialID`)
+    REFERENCES `CognitiveTestDB`.`Recall_Trial` (`recallTrialID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
     ENGINE = InnoDB"""
 
-    my_cursor.execute(sql_creatCopyTrailTable)
+    my_cursor.execute(sql_creatCopyTrialTable)
     my_cursor.execute(sql_creatStaffTable)
-    my_cursor.execute(sql_creatRecallTrailTable)
+    my_cursor.execute(sql_creatRecallTrialTable)
     my_cursor.execute(sql_creatSecurityTable)
     my_cursor.execute(sql_creatParticipantsTable)
     my_cursor.execute(sql_creatImagesTable)
