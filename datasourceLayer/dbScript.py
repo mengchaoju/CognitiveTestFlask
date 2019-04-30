@@ -62,7 +62,7 @@ def createTables(mydb, DBname):
     sql_creatImagesTable = "CREATE TABLE `"+DBname+"`.`Images` (" \
                                                                  "`imageID` INT NOT NULL AUTO_INCREMENT, " \
                                                                  "`imageName` VARCHAR(45) NOT NULL, " \
-                                                                 "`image` BLOB NOT NULL, " \
+                                                                 "`image` BLOB, " \
                                                                  "PRIMARY KEY (`imageID`)) " \
                                                                  "ENGINE = InnoDB"
 

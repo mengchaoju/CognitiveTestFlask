@@ -84,7 +84,7 @@ def routers(app):
         print("participant register successfully")
         return "participant register successfully"
 
-    @app.route('/createImage',methods=['POST'])
+    @app.route('/createImage', methods=['POST'])
     def createImage():
         print(request.form)
         imageInfo=images(imageName=request.form['imagename'],
@@ -260,7 +260,7 @@ def routers(app):
     @app.route('/pixelsdata', methods=['POST'])
     def request_pixels():  # First check the user id, then get pixel data of this user from database.
         participant_id = request.form['username']
-        target_trial = db.session.query(trials).filiter_by(participantID=participant_id).all()
+        target_trial = db.session.query(trials).filter_by(participantID=participant_id).all()
         recall_trialID= target_trial[0].recallTrialID
         copy_trialID= target_trial[0].copyTrialID
 
@@ -268,6 +268,7 @@ def routers(app):
         target_recalltrial = db.session.query(recall_trial).filter_by(recallTrialID=recall_trialID).all()
         copy_trial_pixels = target_copytrial[0].copyTrialPixels
         recall_trial_pixels = target_recalltrial[0].recallTrialPixels
+        print('copy pixels:'+copy_trial_pixels)
         print('Request for user pixel data, username:'+participant_id)
         if participant_id == 'sampleUser':
             return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
@@ -289,7 +290,7 @@ def routers(app):
         copy_trial_end_time = time_arr[3]  # The time clicking the finish button in copy trial activity
         print('Receive copy trial time data of user:' + participant_id + '\ndata:' + time_data)
         print('Receive copy trial pixel data of user:'+participant_id+'\ndata:'+copy_trial_pixels)
-        create_copy_trial(copy_trial_pixels, copy_trial_start_time, copy_trial_end_time, staff_id)
+        create_copy_trial(participant_id, copy_trial_pixels, copy_trial_start_time, copy_trial_end_time, staff_id)
         return '1'  # Success
 
     @app.route('/uploadrecall', methods=['POST'])
@@ -303,7 +304,7 @@ def routers(app):
         recall_trial_drawing_start_time = time_arr[2]
         recall_trial_drawing_end_time = time_arr[3]
         print('Receive recall trial time data of user:' + participant_id + '\ndata:' + time_data)
-        print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixel)
+        print('Receive recall trial pixel data of user:' + participant_id + '\ndata:' + recall_trial_pixels)
         create_recall_trial(participant_id, recall_trial_pixels, recall_trial_thinking_start_time,
                             recall_trial_thinking_end_time, recall_trial_drawing_start_time,
                             recall_trial_drawing_end_time)
@@ -313,7 +314,7 @@ def routers(app):
     The following 3 functions deal with storing trials data to database
     
     '''
-    def create_copy_trial(copy_trial_pixels, copy_trial_start_time, copy_trial_end_time, staff_id):
+    def create_copy_trial(participant_id, copy_trial_pixels, copy_trial_start_time, copy_trial_end_time, staff_id):
         copy_trialInfo=copy_trial(copyTrialPixels=copy_trial_pixels,
                                   copyTrialStartTime=copy_trial_start_time,
                                   copyTrialEndTime=copy_trial_end_time)
@@ -348,10 +349,11 @@ def routers(app):
     def create_trials(participant_id, staff_id, copy_trial_id, recall_trial_id, trial_start_time, trial_end_time):
         trialsInfo=trials(participantID=participant_id,
                           userName=staff_id,
-                          copyTrialID=copy_trial_id,
-                          recallTrialID=recall_trial_id,
+                          copyTrialID=int(copy_trial_id),
+                          recallTrialID=int(recall_trial_id),
                           trialStartTime=trial_start_time,
-                          trialEndTime=trial_end_time)
+                          trialEndTime=trial_end_time,
+                          imageID=1)
         session.add(trialsInfo)
         session.flush()
         session.commit()
