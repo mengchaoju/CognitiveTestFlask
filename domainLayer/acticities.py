@@ -93,8 +93,7 @@ def routers(app):
         haveRecord = db.session.query(participants).filter(or_(participants.dateOfBirth.like('%'+str(keyword)+'%'),
                                                                participants.firstName.like('%'+str(keyword)+'%'),
                                                                participants.familyName.like('%'+str(keyword)+'%'),
-                                                               participants.gender.like('%'+str(keyword)+'%'),
-                                                               participants.dateOfBirth.like('%' + str(keyword) + '%'))).all()
+                                                               participants.gender.like('%'+str(keyword)+'%'))).all()
         if haveRecord.__len__() is not 0:
             for i in haveRecord:
                 record={
