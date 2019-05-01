@@ -8,7 +8,6 @@ participants = Base.classes.participants
 recall_trial=Base.classes.recall_trial
 copy_trial=Base.classes.copy_trial
 security=Base.classes.security
-images=Base.classes.images
 trials=Base.classes.trials
 
 

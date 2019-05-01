@@ -84,19 +84,6 @@ def routers(app):
         print("participant register successfully")
         return "participant register successfully"
 
-    @app.route('/createImage', methods=['POST'])
-    def createImage():
-        print(request.form)
-        imageInfo=images(imageName=request.form['imagename'],
-                                  image=request.form['image']
-                        )
-        session.add(imageInfo)
-        session.flush()
-        session.commit()
-        # inserted_id = recall_trialInfo.recallTrialID
-        print("Recall Trial has been created")
-        return "image has been created successfully"
-
     @app.route('/queryParticipantAll', methods=['POST'])
     def getParticipantInfo():
         print(request.form)
@@ -378,8 +365,7 @@ def routers(app):
                           copyTrialID=int(copy_trial_id),
                           recallTrialID=int(recall_trial_id),
                           trialStartTime=trial_start_time,
-                          trialEndTime=trial_end_time,
-                          imageID=1)
+                          trialEndTime=trial_end_time)
         session.add(trialsInfo)
         session.flush()
         session.commit()

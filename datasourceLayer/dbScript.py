@@ -31,9 +31,6 @@ def dropDatabase(mydb, DBname):
     sql_dropTable = "DROP TABLE IF EXISTS Copy_Trial"
     my_cursor.execute(sql_dropTable)
 
-    sql_dropTable = "DROP TABLE IF EXISTS Images"
-    my_cursor.execute(sql_dropTable)
-
     sql_dropTable = "DROP TABLE IF EXISTS Staff"
     my_cursor.execute(sql_dropTable)
 
@@ -58,13 +55,6 @@ def createTables(mydb, DBname):
     #                  "WHERE table_schema='" + DBname + "';"
     #
     # my_cursor.execute(sql_dropTables)
-
-    sql_creatImagesTable = "CREATE TABLE `"+DBname+"`.`Images` (" \
-                                                                 "`imageID` INT NOT NULL AUTO_INCREMENT, " \
-                                                                 "`imageName` VARCHAR(45) NOT NULL, " \
-                                                                 "`image` BLOB, " \
-                                                                 "PRIMARY KEY (`imageID`)) " \
-                                                                 "ENGINE = InnoDB"
 
     sql_creatCopyTrialTable = """CREATE TABLE `CognitiveTestDB`.`Copy_Trial`
     (`copyTrialID` INT NOT NULL AUTO_INCREMENT,
@@ -104,8 +94,8 @@ def createTables(mydb, DBname):
     CONSTRAINT `fk_security_Clinician1`
     FOREIGN KEY (`userName`)
     REFERENCES `CognitiveTestDB`.`Staff` (`userName`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
     ENGINE = InnoDB"""
 
     sql_creatStaffTable = """CREATE TABLE IF NOT EXISTS `CognitiveTestDB`.`Staff` (
@@ -121,7 +111,6 @@ def createTables(mydb, DBname):
     `trialID` INT NOT NULL AUTO_INCREMENT,
     `participantID` VARCHAR(50) NOT NULL,
     `userName` VARCHAR(50) NOT NULL,
-    `imageID` INT NOT NULL,
     `copyTrialID` INT NOT NULL,
     `recallTrialID` INT NOT NULL,
     `trialStartTime` VARCHAR(45) NOT NULL,
@@ -129,35 +118,29 @@ def createTables(mydb, DBname):
     PRIMARY KEY (`trialID`),
     INDEX `fk_Test Result_Patient_idx` (`participantID` ASC),
     INDEX `fk_Test Result_Clinician1_idx` (`userName` ASC),
-    INDEX `fk_Tasks_Images1_idx` (`imageID` ASC),
     INDEX `fk_Tasks_Copy_Task1_idx` (`copyTrialID` ASC),
     INDEX `fk_Tasks_Recall_Task1_idx` (`recallTrialID` ASC),
     UNIQUE INDEX `trialID_UNIQUE` (`trialID` ASC),
     CONSTRAINT `fk_Test Result_Patient`
     FOREIGN KEY (`participantID`)
     REFERENCES `CognitiveTestDB`.`Participants` (`participantID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     CONSTRAINT `fk_Test Result_Clinician1`
     FOREIGN KEY (`userName`)
     REFERENCES `CognitiveTestDB`.`Staff` (`userName`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Tasks_Images1`
-    FOREIGN KEY (`imageID`)
-    REFERENCES `CognitiveTestDB`.`Images` (`imageID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     CONSTRAINT `fk_Tasks_Copy_Task1`
     FOREIGN KEY (`copyTrialID`)
     REFERENCES `CognitiveTestDB`.`Copy_Trial` (`copyTrialID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     CONSTRAINT `fk_Tasks_Recall_Task1`
     FOREIGN KEY (`recallTrialID`)
     REFERENCES `CognitiveTestDB`.`Recall_Trial` (`recallTrialID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
     ENGINE = InnoDB"""
 
     my_cursor.execute(sql_creatCopyTrialTable)
@@ -165,7 +148,6 @@ def createTables(mydb, DBname):
     my_cursor.execute(sql_creatRecallTrialTable)
     my_cursor.execute(sql_creatSecurityTable)
     my_cursor.execute(sql_creatParticipantsTable)
-    my_cursor.execute(sql_creatImagesTable)
     my_cursor.execute(sql_creatTrialTable)
 
     mydb.close()
