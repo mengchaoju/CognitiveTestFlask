@@ -258,7 +258,8 @@ def routers(app):
             return resultJson
 
     @app.route('/pixelsdata', methods=['POST'])
-    def request_pixels():  # First check the user id, then get pixel data of this user from database.
+    def request_pixels2():  # First check the user id, then get pixel data of this user from database.
+        print(request.headers)
         participant_id = request.form['username']
         target_trial = db.session.query(trials).filter_by(participantID=participant_id).all()
         recall_trialID= target_trial[0].recallTrialID
@@ -269,10 +270,35 @@ def routers(app):
         copy_trial_pixels = target_copytrial[0].copyTrialPixels
         recall_trial_pixels = target_recalltrial[0].recallTrialPixels
         print('copy pixels:'+copy_trial_pixels)
+        print('recall pixels:' + recall_trial_pixels)
         print('Request for user pixel data, username:'+participant_id)
         if participant_id == 'sampleUser':
             return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
         else:
+            # return settings.samplePixelData + '&' + settings.samplePixelData2  # For testing
+            return copy_trial_pixels+'&'+recall_trial_pixels
+
+    @app.route('/pixelsdata', methods=['GET'])
+    def request_pixels():  # First check the user id, then get pixel data of this user from database.
+        print(request.headers)
+        participant_id = str(request.url).split("?")[1]
+        print('participant_id:'+participant_id)
+        target_trial = db.session.query(trials).filter_by(participantID=participant_id).all()
+        recall_trialID= target_trial[0].recallTrialID
+        copy_trialID= target_trial[0].copyTrialID
+
+        target_copytrial = db.session.query(copy_trial).filter_by(copyTrialID=copy_trialID).all()
+        target_recalltrial = db.session.query(recall_trial).filter_by(recallTrialID=recall_trialID).all()
+        copy_trial_pixels = target_copytrial[0].copyTrialPixels
+        recall_trial_pixels = target_recalltrial[0].recallTrialPixels
+        print('copy pixels:'+copy_trial_pixels)
+        print('recall pixels:' + recall_trial_pixels)
+        print('Request for user pixel data, username:'+participant_id)
+        if participant_id == 'sampleUser':
+            return settings.samplePixelData+'&'+settings.samplePixelData2  # For testing
+        else:
+            # return settings.samplePixelData + '&' + settings.samplePixelData2  # For testing
+            print(copy_trial_pixels+'&'+recall_trial_pixels)
             return copy_trial_pixels+'&'+recall_trial_pixels
 
     '''
