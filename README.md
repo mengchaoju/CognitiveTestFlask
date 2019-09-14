@@ -1,5 +1,3 @@
 # CognitiveTest-engine
 
-Install
-
-pip install mysql-connector-python
+Cognitive Test Backend
