@@ -17,13 +17,9 @@ Value = copyTrialID, copyTrialStartTime, staffID
 '''
 trialsData = {}
 
-
 def routers(app):
-    @app.route('/', methods=['POST'])
+    @app.route('/')
     def post():
-        uid = request.form['uid']
-        name = request.form['name']
-        print('uid: %s, name: %s' % (uid, name))
         return 'OK.'
 
     @app.route('/stafflogin', methods=['POST'])
